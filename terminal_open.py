@@ -1,8 +1,14 @@
 import os
+import subprocess
+
 """
-NOT WORKING!
+-----
 """
 
-command = "ls"
-os.system("gnome-terminal -- 'ls'")
-os.system("gnome-terminal -- 'bash -c \""+command+";bash\"'")
+#subprocess.call(['gnome-terminal -- "ls"'], shell=True)
+
+subprocess.Popen('')
+subprocess.call(["ls"], shell=True)
+
+#os.system("ls")
+#os.system("gnome-terminal -- 'bash -c \""+command+";bash\"'")

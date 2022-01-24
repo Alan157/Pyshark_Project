@@ -24,9 +24,17 @@ TO CHECK:
 
 """
 print("Welcome to the live network traffic feed:")
-network_interface = input("\nPlease type the network interface you wish to use:")  # Create a try for the network adapter
-filters = input("\nPlease type with filters you would like to use(leave empty for all traffic):")
-while True:
+while True:  # A loop to capture and validate the input of the interface variable
+    network_interface = input("\nPlease type the network interface you wish to use:")
+    if network_interface == "":
+        print("\nMust enter a network interface!")
+    else:
+        break
+
+
+filters = input("\nPlease type with filters you would like to use(leave empty for all traffic):")  # An input for the filters variable
+
+while True:  # A loop to capture and validate the input of the summaries variable
     summaries = input("\nDisplay packets as summaries?(y/n):")
     if summaries == "y" or summaries == "n":
         if summaries == "y":
@@ -34,17 +42,24 @@ while True:
         else:
             summaries = False
         break
+    print("\nMust enter a valid option!")
 
-file_name = input("\nPlease type the file name to which the logs will be saved:")
+while True:  # A loop to capture and validate the input of the path variable
+
+    path = input("\nPlease type the path to which the logs will be saved:")
+    if path == "":
+        "\nMust enter a valid path!"
+    else:
+        break
 
 print("Starting packet sniff and display")
-capture = pyshark.LiveCapture(interface=network_interface, only_summaries=summaries, bpf_filter=filters)
+capture = pyshark.LiveCapture(interface=network_interface, only_summaries=summaries, bpf_filter=filters)  # starting the capture
 
-output = open("/home/kali/Desktop/" + file_name + ".txt", "w")
+output = open(path, "w")  # Opens a file for writing logs
 
-for packet in capture.sniff_continuously():
-    print(packet)
-    output.write(str(packet))
+for packet in capture.sniff_continuously():  # A loop for printing and writing the packets
+    print(packet)  # Printing the packet
+    output.write(str(packet))  # writing the packet to the file for logging
     output.write("\n")
 
 output.close()
