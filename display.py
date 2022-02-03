@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/kali/PycharmProjects/pythonProject/venv/lib/python3.9/site-packages/')  # allows terminal exec
+sys.path.append('/home/kali/PycharmProjects/pythonProject/venv/lib/python3.9/site-packages/')  # allows terminal execution
 import pyshark
 
 
@@ -30,7 +30,7 @@ while True:  # A loop to capture and validate the input of the summaries variabl
 
 while True:  # A loop to capture and validate the input of the path variable
 
-    path = input("\nPlease type the path to which the logs will be saved(Default:/home/kali/Desktop/Logs/):")
+    path = input("\nPlease type the path to which the logs will be saved:")
     if path == "":
         "\nMust enter a valid path!"
     else:
@@ -39,7 +39,7 @@ while True:  # A loop to capture and validate the input of the path variable
 print("\n------------Starting packet sniff, display and logging------------")
 capture = pyshark.LiveCapture(interface=network_interface, only_summaries=summaries, bpf_filter=filters)  # starting the capture
 
-output = open("/home/kali/Desktop/Logs/" + path, "w")  # Opens a file for writing logs
+output = open(path, "w")  # Opens a file for writing logs
 
 for packet in capture.sniff_continuously():  # A loop for printing and writing the packets
     print(packet)  # Printing the packet
